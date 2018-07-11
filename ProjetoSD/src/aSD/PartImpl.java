@@ -2,6 +2,8 @@ package aSD;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PartImpl implements Part{
 
@@ -10,9 +12,9 @@ public class PartImpl implements Part{
 	String descricao;
 	boolean subpart;
 	int quantidade;
-	ArrayList<Part> partList = new ArrayList<Part>();
-	
-	public PartImpl(int i, String nm, String desc, boolean subp, int quant, ArrayList<Part> partL) {
+	HashMap<Integer, Integer> partList;
+
+	public PartImpl(int i, String nm, String desc, boolean subp, int quant, HashMap<Integer, Integer> partL) {
 		this.id = i;
 		this.nome = nm;
 		this.descricao = desc;
@@ -20,6 +22,4 @@ public class PartImpl implements Part{
 		this.quantidade = quant;
 		this.partList = partL;
 	}
-	
-		
 }
