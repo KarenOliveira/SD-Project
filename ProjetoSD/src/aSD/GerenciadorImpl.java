@@ -26,7 +26,7 @@ public class GerenciadorImpl implements Gerenciador{
 		String[] nomes = r.list();
 		
 		for(int i=0;i<nomes.length;i++) {
-			if(nomes[i].equals(id)) 
+			if(nomes[i].equals(id)) {}
 		}
 	}
 
