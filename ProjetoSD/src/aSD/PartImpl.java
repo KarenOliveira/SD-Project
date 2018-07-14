@@ -6,16 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PartImpl implements Part{
-
-	int id;
+	
+	static int count = 0;
+	Integer id;
 	String nome;
 	String descricao;
 	boolean subpart;
 	int quantidade;
-	HashMap<Integer, Integer> partList;
+	Map<Integer, Integer> partList;
 
-	public PartImpl(int i, String nm, String desc, boolean subp, int quant, HashMap<Integer, Integer> partL) {
-		this.id = i;
+	public PartImpl(String nm, String desc, boolean subp, int quant, Map<Integer, Integer> partL) {
+		count++;
+		this.id = count;
 		this.nome = nm;
 		this.descricao = desc;
 		this.subpart = subp;

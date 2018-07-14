@@ -2,21 +2,26 @@ package aSD;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.rmi.registry.Registry;
 
 public interface Gerenciador extends Remote{
 	
 	public void conectar()
 		throws RemoteException;
-	public void addPeca()
+	public void addPeca(Registry r)
 		throws RemoteException;
-	public void getrepName()
+	public void addnewp(Registry r)
 		throws RemoteException;
-	public int getQuant()
+	public void getrepName(Registry r)
 		throws RemoteException;
-	public int listPecas()
+	public void getQuant(Registry r)
 		throws RemoteException;
-	public void buscaPeca()
+	public void listPecas(Registry r)
 		throws RemoteException;
-	public void addsubpart()
+	public void buscaPeca(Registry r)
+		throws RemoteException;
+	public void addsubpart(Registry r)
+		throws RemoteException;
+	public void showp(Registry r)
 		throws RemoteException;
 }
