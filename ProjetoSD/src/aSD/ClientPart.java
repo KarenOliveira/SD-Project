@@ -26,10 +26,12 @@ public class ClientPart {
 			 porta = sc.nextLine();
 			 if(!porta.equals("Quit")) {port = Integer.parseInt(porta);} 
 			 Registry registry = LocateRegistry.getRegistry(port);
-	       
+			 	       
 	        // Consulta o registry e obtém o stub para o objeto remoto
-	        Gerenciador gere = (Gerenciador) registry.lookup("Gerenciador");
+	        Part gere = (Part) registry.lookup("Gerenciador");
 	        System.out.println("Conectado à porta " + port);
+	        
+	        registry.bind("nome", gere);
 	        
 	        // A partir deste momento, cahamadas ao Gerenciador podem ser
 	        // feitas como qualquer chamada a métodos
