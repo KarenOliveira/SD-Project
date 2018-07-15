@@ -1,17 +1,12 @@
 package aSD;
-import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ClientPart{
 	
-    public static PartImpl pecaAtual;
-    static Map<PartImpl,Integer> subpAtual = new HashMap<PartImpl,Integer>();
     static transient Scanner sc = new Scanner(System.in);
     
 	public static void main(String[] args) {
@@ -20,7 +15,7 @@ public class ClientPart{
 
 	       // Localiza o registry. É possível usar endereço/IP porta
 	    	
-	    	String porta  = null;
+	    	//String porta  = null;
 	    	int port = 0;
 	    	
 	    	 System.out.println("Escolha a porta a se conectar: ");
@@ -46,28 +41,31 @@ public class ClientPart{
 	        	 comando = sn.nextLine();
 	        
 		        switch(comando) {
-		        case "bind":
-		        	gere.conectar();
-		        	break;
-		        case "listp":
-		        	gere.listPecas(registry);
-		        	break;
-		        case "getp":
-		        	gere.buscaPeca(registry);
-		        	break;
-		        case "showp":
-		        	gere.showp(registry);
-		        	break;
-		        case "clearlist":
-		        	break;
-		        case "addsubpart":
-		        	gere.addsubpart(registry);
+		        case "addnewp":
+		        	gere.addnewp(registry);
 		        	break;
 		        case "addp":
 		        	gere.addPeca(registry);
 		        	break;
-		        case "addnewp":
-		        	gere.addnewp(registry);
+		        case "addsubpart":
+		        	gere.addsubpart(registry);
+		        	break;
+		        case "bind":
+		        	gere.conectar();
+		        	break;
+		        case "clearlist":
+		        	break;
+		        case "getp":
+		        	gere.buscaPeca(registry);
+		        	break;
+		        case "listp":
+		        	gere.listPecas(registry);
+		        	break;
+		        case "showp":
+		        	gere.showp(registry);
+		        	break;
+		        case "showsubp":
+		        	gere.showsubp(registry);
 		        	break;
 		        case "quit":
 		        	break;

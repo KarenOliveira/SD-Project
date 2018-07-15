@@ -14,8 +14,6 @@ public interface Gerenciador extends Remote{
 		throws RemoteException;
 	public void getrepName(Registry r)
 		throws RemoteException;
-	public void getQuant(Registry r)
-		throws RemoteException;
 	public void listPecas(Registry r)
 		throws RemoteException;
 	public void buscaPeca(Registry r)
@@ -23,5 +21,7 @@ public interface Gerenciador extends Remote{
 	public void addsubpart(Registry r)
 		throws RemoteException;
 	public void showp(Registry r)
+		throws RemoteException;
+	public void showsubp(Registry r)
 		throws RemoteException;
 }

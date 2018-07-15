@@ -1,39 +1,40 @@
 package aSD;
 
-import java.io.Serializable;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class GerenciadorImpl implements Gerenciador{
 	
+	public static PartImpl pecaAtual;
+	public static HashMap<Integer,Integer> subpAtual = new HashMap<Integer,Integer>();
 	static transient Scanner sc = new Scanner(System.in);
 
 	public void addnewp(Registry r) throws RemoteException {
 		PartImpl parteNova = null;
-		
+		System.out.println("----------------------------------------\n");
 		System.out.println("Informe o nome da peça: ");
 		String name = sc.nextLine();
 		System.out.println("Informe a descrição da peça: ");
 		String description = sc.nextLine();
 		System.out.println("Informe a quantidade de Peças: ");
-		int qntd = sc.nextInt();
-		System.out.println("A peça possui subparts(s/n) ");
-		boolean subp = false;
-		
-		if(sc.nextLine().equals("s")) {
-		subp = true;
-		parteNova = new PartImpl(name,description,subp,qntd,ClientPart.subpAtual);
-		} else { parteNova = new PartImpl(name,description,subp,qntd,null); }
+		int qntd = Integer.parseInt(sc.nextLine());
+		System.out.println("A peça possui subparts(s/n): ");
+		String conf = sc.nextLine();
+		if(conf.equals("s"))  parteNova = new PartImpl(name,description,true,qntd,subpAtual);
+		else parteNova = new PartImpl(name,description,false,qntd,null);
 		
 		try {
 			r.bind(parteNova.id.toString(), parteNova);
 		} catch (AlreadyBoundException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Peça adicionada");
+		System.out.println("----------------------------------------\n");
 		
 	}
 	
@@ -71,15 +72,10 @@ public class GerenciadorImpl implements Gerenciador{
 		}
 		
 		if (jaCadastrado == true) {
-		    try {
-				System.out.println("Informe a quantidade de Subpeças nessa Peças ");
-				Integer qntdP = sc.nextInt();
-			
-				ClientPart.subpAtual.put(((PartImpl) r.lookup(id)), qntdP);
-			} catch (NotBoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		    System.out.println("Informe a quantidade de Subpeças nessa Peças ");
+			Integer qntdP = Integer.parseInt(sc.nextLine());
+
+			subpAtual.put(Integer.parseInt(id), qntdP);
 		} else { System.out.println("Subpeça não cadastrada"); }
 		
 	}
@@ -93,8 +89,8 @@ public class GerenciadorImpl implements Gerenciador{
 		try {
 			for (int i = 0;i < nomes.length;i++) {
 				if (id.equals(nomes[i])) { 
-					ClientPart.pecaAtual = (PartImpl) r.lookup(id);
-					System.out.println("Peça adicionada ao repositório atual");
+					pecaAtual = (PartImpl) r.lookup(id);
+					System.out.println("Peça selecionada, use o comando showp para visualizar");
 				} else { System.out.println("Peça não encontrada"); }
 			}
 		} catch (NotBoundException e) {
@@ -105,45 +101,63 @@ public class GerenciadorImpl implements Gerenciador{
 	}
 	
 	public void conectar() throws RemoteException {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Escolha a porta a se conectar ");
-	    int port = sc.nextInt();
-		Registry registry = LocateRegistry.getRegistry(port);
+		
+		
 	}
 
 	public void getrepName(Registry r) throws RemoteException {
-		
-		
-		
-	}
-
-	public void getQuant(Registry r) throws RemoteException {
-		// TODO Auto-generated method stub
+			System.out.println("Server atual: " + r.list()[0]);
 	}
 
 	public void listPecas(Registry r) throws RemoteException {
 		
 		String[] list = r.list();
+		
+		System.out.println("----------------------------------------\n");
+		
 		try {
 			for(int i = 1;i<list.length;i++) {
-				
-					System.out.println("Nome: " + ((PartImpl) r.lookup(list[i])).nome);
-					System.out.println("ID: " + ((PartImpl) r.lookup(list[i])).id);
+				System.out.println("Nome: " + ((PartImpl) r.lookup(list[i])).nome);
+				System.out.println("ID: " + ((PartImpl) r.lookup(list[i])).id);
 			}
 		}
+		catch (NotBoundException e) { e.printStackTrace(); }
 		
-		catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println("----------------------------------------\n");
+		
 	}
 
 	public void showp(Registry r) throws RemoteException {
-		System.out.println("Nome: "+ ClientPart.pecaAtual.nome + "\n" + 
-						   "id: "+ ClientPart.pecaAtual.id + "\n" + 
-						   "desc: "+ ClientPart.pecaAtual.descricao + "\n" + 
-						   "quant: "+ ClientPart.pecaAtual.quantidade + "\n" + 
-						   "Nome: "+ ClientPart.pecaAtual.nome);
+		System.out.println("Nome: "+ pecaAtual.nome + "\n" + 
+						   "id: "+ pecaAtual.id + "\n" + 
+						   "desc: "+ pecaAtual.descricao + "\n" + 
+						   "quant: "+ pecaAtual.quantidade + "\n");
+		
+		if(pecaAtual.partList != null) {
+			Iterator<Integer> iterator = pecaAtual.partList.keySet().iterator();
+	
+			while (iterator.hasNext()) {
+			   Integer key = iterator.next();
+			   Integer value = pecaAtual.partList.get(key);
+	
+			   System.out.println(key + " " + value);
+			}
+		}
+		
+	}
+	
+	public void showsubp(Registry r) {
+		
+		if(subpAtual != null) {
+			Iterator<Integer> iterator = subpAtual.keySet().iterator();
+	
+			while (iterator.hasNext()) {
+			   Integer key = iterator.next();
+			   Integer value = subpAtual.get(key);
+	
+			   System.out.println(key + " " + value);
+			}
+		}
 	}
 
 }
