@@ -24,4 +24,6 @@ public interface Gerenciador extends Remote{
 		throws RemoteException;
 	public void showsubp(Registry r)
 		throws RemoteException;
+	public void clear()
+		throws RemoteException;
 }

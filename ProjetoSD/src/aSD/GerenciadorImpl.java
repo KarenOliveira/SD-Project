@@ -25,7 +25,25 @@ public class GerenciadorImpl implements Gerenciador{
 		int qntd = Integer.parseInt(sc.nextLine());
 		System.out.println("A peça possui subparts(s/n): ");
 		String conf = sc.nextLine();
-		if(conf.equals("s"))  parteNova = new PartImpl(name,description,true,qntd,subpAtual);
+		if(conf.equals("s"))  {
+			Integer[][] subp = new Integer[subpAtual.size()][2];
+			
+			if(subpAtual != null) {
+				Iterator<Integer> iterator = subpAtual.keySet().iterator();
+				int i = 0;
+				while (iterator.hasNext()) {
+				   
+				   Integer key = iterator.next();
+				   Integer value = subpAtual.get(key);
+		
+				   subp[i][0] = key;
+				   subp[i][1] = value;
+				   i++;
+				}
+			}
+			
+			parteNova = new PartImpl(name,description,true,qntd,subp);
+		}
 		else parteNova = new PartImpl(name,description,false,qntd,null);
 		
 		try {
@@ -85,14 +103,19 @@ public class GerenciadorImpl implements Gerenciador{
 		System.out.println("Informe o ID da Subpeça: ");
 		String id = sc.nextLine();
 		String[] nomes = r.list();
+		boolean conf = false;
 		
 		try {
 			for (int i = 0;i < nomes.length;i++) {
-				if (id.equals(nomes[i])) { 
+				if (id.equals(nomes[i])) {
 					pecaAtual = (PartImpl) r.lookup(id);
 					System.out.println("Peça selecionada, use o comando showp para visualizar");
-				} else { System.out.println("Peça não encontrada"); }
+					conf = true;
+				}
 			}
+			
+			if(conf == false) System.out.println("Peça não encontrada");
+			
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,7 +125,11 @@ public class GerenciadorImpl implements Gerenciador{
 	
 	public void conectar() throws RemoteException {
 		
-		
+	}
+	
+	public void clear() {
+		subpAtual = null;
+		pecaAtual = null;
 	}
 
 	public void getrepName(Registry r) throws RemoteException {
@@ -134,16 +161,11 @@ public class GerenciadorImpl implements Gerenciador{
 						   "quant: "+ pecaAtual.quantidade + "\n");
 		
 		if(pecaAtual.partList != null) {
-			Iterator<Integer> iterator = pecaAtual.partList.keySet().iterator();
-	
-			while (iterator.hasNext()) {
-			   Integer key = iterator.next();
-			   Integer value = pecaAtual.partList.get(key);
-	
-			   System.out.println(key + " " + value);
+			for(int i=0;i<pecaAtual.partList.length;i++) {
+				System.out.println("subpeca ID: " + pecaAtual.partList[i][0]);
+				System.out.println("subpeca Quant: " + pecaAtual.partList[i][1]);
 			}
 		}
-		
 	}
 	
 	public void showsubp(Registry r) {
@@ -155,7 +177,7 @@ public class GerenciadorImpl implements Gerenciador{
 			   Integer key = iterator.next();
 			   Integer value = subpAtual.get(key);
 	
-			   System.out.println(key + " " + value);
+			   System.out.println("ID: " + key + "\nQuantidade: " + value);
 			}
 		}
 	}

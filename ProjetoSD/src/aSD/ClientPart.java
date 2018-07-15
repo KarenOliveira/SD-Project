@@ -54,6 +54,7 @@ public class ClientPart{
 		        	gere.conectar();
 		        	break;
 		        case "clearlist":
+		        	gere.clear();
 		        	break;
 		        case "getp":
 		        	gere.buscaPeca(registry);

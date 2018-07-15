@@ -16,9 +16,10 @@ public class PartImpl implements Part, Serializable{
 	public String descricao;
 	public boolean subpart;
 	public int quantidade;
-	public HashMap<Integer, Integer> partList;
-
-	public PartImpl(String nm, String desc, boolean subp, int quant, HashMap<Integer, Integer> subpAtual) {
+	//public HashMap<Integer, Integer> partList;
+	public Integer[][] partList;
+	
+	public PartImpl(String nm, String desc, boolean subp, int quant, Integer[][] subpAtual) {
 		count++;
 		this.id = count;
 		this.nome = nm;
