@@ -23,7 +23,7 @@ public class ClientPart{
 	    	String porta  = null;
 	    	int port = 0;
 	    	
-	    	 System.out.println("Escolha a porta a se conectar ");
+	    	 System.out.println("Escolha a porta a se conectar: ");
 			 port = sc.nextInt();
 			 Registry registry = LocateRegistry.getRegistry(9815);
 			 	       
