@@ -74,12 +74,12 @@ public class GerenciadorImpl implements Gerenciador{
 		if (jaCadastrado == true) {
 		    System.out.println("Informe a quantidade de Subpeças nessa Peças ");
 			Integer qntdP = Integer.parseInt(sc.nextLine());
-
+			
 			subpAtual.put(Integer.parseInt(id), qntdP);
 		} else { System.out.println("Subpeça não cadastrada"); }
 		
 	}
-	
+		
 	public void buscaPeca(Registry r) throws RemoteException {
 		
 		System.out.println("Informe o ID da Subpeça: ");
