@@ -16,7 +16,7 @@ public interface Gerenciador extends Remote{
 		throws RemoteException;
 	public void listPecas(Registry r)
 		throws RemoteException;
-	public void buscaPeca(Registry r)
+	public void getp(Registry r)
 		throws RemoteException;
 	public void addsubpart(Registry r)
 		throws RemoteException;

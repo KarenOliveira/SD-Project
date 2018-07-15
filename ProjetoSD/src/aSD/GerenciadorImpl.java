@@ -40,9 +40,10 @@ public class GerenciadorImpl implements Gerenciador{
 				   subp[i][1] = value;
 				   i++;
 				}
-			}
+				parteNova = new PartImpl(name,description,true,qntd,subp);
+				
+			} else {System.out.println("Não há subpart atual para ser adicionada");}
 			
-			parteNova = new PartImpl(name,description,true,qntd,subp);
 		}
 		else parteNova = new PartImpl(name,description,false,qntd,null);
 		
@@ -98,7 +99,7 @@ public class GerenciadorImpl implements Gerenciador{
 		
 	}
 		
-	public void buscaPeca(Registry r) throws RemoteException {
+	public void getp(Registry r) throws RemoteException {
 		
 		System.out.println("Informe o ID da Subpeça: ");
 		String id = sc.nextLine();

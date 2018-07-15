@@ -1,8 +1,7 @@
 package aSD;
+import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class ClientPart{
@@ -17,25 +16,41 @@ public class ClientPart{
 	    	
 	    	//String porta  = null;
 	    	int port = 0;
-	    	
-	    	 System.out.println("Escolha a porta a se conectar: ");
-			 port = sc.nextInt();
-			 Registry registry = LocateRegistry.getRegistry(9815);
-			 	       
-	        // Consulta o registry e obtém o stub para o objeto remoto
-	        Gerenciador gere = (Gerenciador) registry.lookup("Gerenciador");
-	        System.out.println("Conectado à porta " + port);
-	        
-	        //registry.bind("nome", gere);
-	        
-	        // A partir deste momento, cahamadas ao Gerenciador podem ser
-	        // feitas como qualquer chamada a métodos
-	        
-	       
-	        Scanner sn = new Scanner(System.in);
-	        String comando = null;
-	              
-	        while(comando != "Quit"){
+	    	String comando = "Init";
+	    	while(!comando.equals("Quit")) {
+		    	
+		    	System.out.println("Escolha a porta a se conectar: ");
+				comando = sc.nextLine();
+				port = Integer.parseInt(comando);
+				
+				try {
+				
+					Registry registry = LocateRegistry.getRegistry(port);
+			        // Consulta o registry e obtém o stub para o objeto remoto
+			        Gerenciador gere = (Gerenciador) registry.lookup("Server " + port);
+			        System.out.println("Conectado à porta " + port);
+					
+			        // A partir deste momento, cahamadas ao Gerenciador podem ser
+			        // feitas como qualquer chamada a métodos
+			        
+			        Conexão(registry, gere);
+				} catch(IOException e) {
+					System.out.println("Porta inválida");
+				}
+	    	}
+
+	    } catch (Exception e) {
+	       System.err.println("Ocorreu um erro no cliente: " + e.toString());
+	    }
+	 }
+	
+	public static void Conexão(Registry registry, Gerenciador gere) {
+        Scanner sn = new Scanner(System.in);
+        String comando = "Init";
+        
+        try {
+        
+	        while(!comando.equals("Quit")){
 	        	
 	        	 System.out.println("Aguardando comando: ");
 	        	 comando = sn.nextLine();
@@ -57,7 +72,7 @@ public class ClientPart{
 		        	gere.clear();
 		        	break;
 		        case "getp":
-		        	gere.buscaPeca(registry);
+		        	gere.getp(registry);
 		        	break;
 		        case "listp":
 		        	gere.listPecas(registry);
@@ -68,20 +83,20 @@ public class ClientPart{
 		        case "showsubp":
 		        	gere.showsubp(registry);
 		        	break;
-		        case "quit":
+		        case "Quit":
 		        	break;
 		        default:
 		        	System.out.println("Esse não é um comando válido!!!");
 	          }
 	      }
-	        
-
-	    } catch (Exception e) {
-	       System.err.println("Ocorreu um erro no cliente: " + e.toString());
-	    }
-	 }
 	
-	
+        } catch(Exception e) {
+        	System.err.println("Ocorreu um erro na conexão: " + e.toString());
+        }
+        
+    System.out.println("Conexão encerrada");
+        
+	}
 	
 	
 }
