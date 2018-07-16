@@ -11,13 +11,13 @@ public interface Gerenciador extends Remote{
 		throws RemoteException;
 	public void getrepName(Registry r)
 		throws RemoteException;
-	public void listPecas(Registry r)
+	public String listPecas(Registry r)
 		throws RemoteException;
 	public String getp(Registry r,String id)
 		throws RemoteException;
 	public void addsubpart(Registry r)
 		throws RemoteException;
-	public void showp(Registry r)
+	public String showp(Registry r)
 		throws RemoteException;
 	public void showsubp(Registry r)
 		throws RemoteException;

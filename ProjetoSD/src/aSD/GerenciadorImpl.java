@@ -122,36 +122,34 @@ public void addPeca(Registry r) throws RemoteException {
 			System.out.println("Server atual: " + r.list()[0]);
 	}
 
-	public void listPecas(Registry r) throws RemoteException {
+	public String listPecas(Registry r) throws RemoteException {
 		
 		String[] list = r.list();
-		
-		System.out.println("----------------------------------------\n");
-		
+		String retorno = "";
 		try {
 			for(int i = 1;i<list.length;i++) {
-				System.out.println("Nome: " + ((PartImpl) r.lookup(list[i])).nome);
-				System.out.println("ID: " + ((PartImpl) r.lookup(list[i])).id);
+				retorno = retorno + "Nome: " + ((PartImpl) r.lookup(list[i])).nome + "\n";
+				retorno = retorno + "ID: " + ((PartImpl) r.lookup(list[i])).id + "\n";
 			}
+			return retorno;
 		}
-		catch (NotBoundException e) { e.printStackTrace(); }
-		
-		System.out.println("----------------------------------------\n");
-		
+		catch (NotBoundException e) { return retorno; }
 	}
 
-	public void showp(Registry r) throws RemoteException {
-		System.out.println("Nome: "+ pecaAtual.nome + "\n" + 
+	public String showp(Registry r) throws RemoteException {
+		String retorno = "Nome: "+ pecaAtual.nome + "\n" + 
 						   "ID: "+ pecaAtual.id + "\n" + 
 						   "Descrição: "+ pecaAtual.descricao + "\n" + 
-						   "Quantidade: "+ pecaAtual.quantidade + "\n");
+						   "Quantidade: "+ pecaAtual.quantidade + "\nLista das Subpeças: \n";
 		
 		if(pecaAtual.partList != null) {
 			for(int i=0;i<pecaAtual.partList.length;i++) {
-				System.out.println("ID da Subpeça: " + pecaAtual.partList[i][0]);
-				System.out.println("Quantidade da Subpeça: " + pecaAtual.partList[i][1]);
+				retorno = retorno + "ID da Subpeça: " + pecaAtual.partList[i][0] + "\n";
+				retorno = retorno + "Quantidade da Subpeça: " + pecaAtual.partList[i][1] + "\n";
+				retorno = retorno + "--------\n";
 			}
 		}
+	return retorno;
 	}
 	
 	public void showsubp(Registry r) {

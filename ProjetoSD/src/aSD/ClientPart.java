@@ -72,14 +72,16 @@ public class ClientPart{
 		        case "getp":
 		        	System.out.println("Informe o ID da peça: ");
 		        	String id = sc.nextLine();
-		        	String retgetp = gere.getp(registry, id);
-		        	System.out.println(retgetp);
+		        	String getp = gere.getp(registry, id);
+		        	System.out.println(getp);
 		        	break;
 		        case "listp":
-		        	gere.listPecas(registry);
+		        	String listp = gere.listPecas(registry);
+		        	System.out.println(listp);
 		        	break;
 		        case "showp":
-		        	gere.showp(registry);
+		        	String showp = gere.showp(registry);
+		        	System.out.println(showp);
 		        	break;
 		        case "showsubp":
 		        	gere.showsubp(registry);
@@ -93,6 +95,7 @@ public class ClientPart{
 		        default:
 		        	System.out.println("Esse não é um comando válido!!!");
 	          }
+		        System.out.println("----------------------------------------\n");
 	      }
 	
         } catch(Exception e) {
