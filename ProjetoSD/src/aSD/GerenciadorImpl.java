@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class GerenciadorImpl implements Gerenciador{
 	
 	public static PartImpl pecaAtual;
-	public static HashMap<Integer,Integer> subpAtual = new HashMap<Integer,Integer>();
+	public static HashMap<Integer,Integer> subpAtual = new HashMap	<Integer,Integer>();
 	static transient Scanner sc = new Scanner(System.in);
 
 	public void addnewp(Registry r) throws RemoteException {
@@ -21,8 +21,12 @@ public class GerenciadorImpl implements Gerenciador{
 		String name = sc.nextLine();
 		System.out.println("Informe a descrição da peça: ");
 		String description = sc.nextLine();
+		try {
 		System.out.println("Informe a quantidade de Peças: ");
 		int qntd = Integer.parseInt(sc.nextLine());
+		}catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
 		System.out.println("A peça possui subparts(s/n): ");
 		String conf = sc.nextLine();
 		if(conf.equals("s"))  {
@@ -125,11 +129,11 @@ public class GerenciadorImpl implements Gerenciador{
 	}
 	
 
-	public void help() throws RemoteException {
+	public void ajuda() throws RemoteException {
 		System.out.println("Comandos:\naddp: Adiciona uma nova peça que já esteja identificada.\n"
 				+ "addnewp: Adiciona peças que ainda não foram cadastradas.\n"
 				+ "addsubpart: Adiciona subpeças em uma peça já cadastrada.\n"
-				+ "clearlist: Limpar peça e subpeças atuais.\n"
+				+ "clearlist: Limpar peça e lista de subpeças atuais.\n"
 				+ "getp: Busca uma peça, caso a busca seja bem sucedida, salva o resultado como Peça atual\n"
 				+ "listp: Lista as peças do repositório atual.\n"
 				+ "quit: Desconecta do Servidor atual, irá solicitar uma nova porta.\n"

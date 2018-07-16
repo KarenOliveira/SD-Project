@@ -8,6 +8,7 @@ public class PartImpl implements Part, Serializable{
 	
 	/**
 	 * 
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public static int count = 0;
