@@ -45,14 +45,15 @@ public class ClientPart{
 	 }
 	
 	public static void Conexão(Registry registry, Gerenciador gere) {
-        Scanner sn = new Scanner(System.in);
         String comando = "Init";
+        Scanner sn = new Scanner(System.in);
         
         try {
         
 	        while(!comando.equals("quit")){
-	        	
+	        		
 	        	 System.out.println("Aguardando comando: ");
+	        	 
 	        	 comando = sn.nextLine();
 	        
 		        switch(comando) {
@@ -69,7 +70,10 @@ public class ClientPart{
 		        	gere.clear();
 		        	break;
 		        case "getp":
-		        	gere.getp(registry);
+		        	System.out.println("Informe o ID da peça: ");
+		        	String id = sc.nextLine();
+		        	String retgetp = gere.getp(registry, id);
+		        	System.out.println(retgetp);
 		        	break;
 		        case "listp":
 		        	gere.listPecas(registry);

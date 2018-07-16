@@ -1,7 +1,6 @@
 package aSD;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.rmi.registry.Registry;
 
 public interface Gerenciador extends Remote{
@@ -14,7 +13,7 @@ public interface Gerenciador extends Remote{
 		throws RemoteException;
 	public void listPecas(Registry r)
 		throws RemoteException;
-	public void getp(Registry r)
+	public String getp(Registry r,String id)
 		throws RemoteException;
 	public void addsubpart(Registry r)
 		throws RemoteException;

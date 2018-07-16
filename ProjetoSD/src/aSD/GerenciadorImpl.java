@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class GerenciadorImpl implements Gerenciador{
-	
 	public static PartImpl pecaAtual;
 	public static HashMap<Integer,Integer> subpAtual = new HashMap	<Integer,Integer>();
 	static transient Scanner sc = new Scanner(System.in);
@@ -47,7 +46,7 @@ public class GerenciadorImpl implements Gerenciador{
 				}
 				parteNova = new PartImpl(name,description,true,qntd,subp);
 				
-			} else {System.out.println("Não há subpart atual para ser adicionada");}
+			} else {System.out.println("Não há subparte atual para ser adicionada");}
 			
 		}
 		else parteNova = new PartImpl(name,description,false,qntd,null);
@@ -62,7 +61,7 @@ public class GerenciadorImpl implements Gerenciador{
 		
 	}
 	
-	public void addPeca(Registry r) throws RemoteException {
+public void addPeca(Registry r) throws RemoteException {
 		
 		System.out.println("Informe o ID da peça a ser adicionada: ");
 		String id = sc.nextLine();
@@ -70,67 +69,42 @@ public class GerenciadorImpl implements Gerenciador{
 		
 		for(int i=0;i<nomes.length;i++) {
 			if(nomes[i].equals(id)) {
+				int q = 0;
 				try {
 					System.out.println("Informe a quantidade a ser adicionada: ");
-					int q = sc.nextInt();
-					((PartImpl) r.lookup(id)).quantidade += q;
+					try {
+					q = Integer.parseInt(sc.nextLine());
+					}
+					catch(NumberFormatException e){
+						System.out.println("Quantidade inválida");
+					}
+					((PartImpl) r.lookup(id)).quantidade  = ((PartImpl) r.lookup(id)).quantidade + q;
 				} catch (NotBoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-			
+				}		
 			}
 		}
 		
 	}
-	
-	public void addsubpart(Registry r) throws RemoteException {
+	public String getp(Registry r, String id) throws RemoteException {
 		
-		System.out.println("Informe o ID da Subpeça: ");
-		String id = sc.nextLine();
-		boolean jaCadastrado = false;
 		String[] nomes = r.list();
-		
-		for (int i = 0;i < nomes.length;i++) {
-			if (id.equals(nomes[i])) jaCadastrado = true;
-		}
-		
-		if (jaCadastrado == true) {
-		    System.out.println("Informe a quantidade de Subpeças nessa Peças ");
-		    Integer qntdP = 0;
-		    try {
-			qntdP = Integer.parseInt(sc.nextLine());
-		    }catch (NumberFormatException e) {
-		    	e.printStackTrace();
-		    }
-			subpAtual.put(Integer.parseInt(id), qntdP);
-		} else { System.out.println("Subpeça não cadastrada"); }
-		
-	}
-		
-	public void getp(Registry r) throws RemoteException {
-		
-		System.out.println("Informe o ID da Peça: ");
-		String id = sc.nextLine();
-		String[] nomes = r.list();
-		boolean conf = false;
+		String retorno = null;
 		
 		try {
 			for (int i = 0;i < nomes.length;i++) {
 				if (id.equals(nomes[i])) {
 					pecaAtual = (PartImpl) r.lookup(id);
-					System.out.println("Peça selecionada, use o comando showp para visualizar");
-					conf = true;
+					retorno = "Peça selecionada, use o comando showp para visualizar";
+					return retorno;
 				}
-			}
-			
-			if(conf == false) System.out.println("Peça não encontrada");
-			
+			}		
 		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			retorno = "Peça não encontrada";
+			return retorno;
 		}
-		
+		return retorno;	
 	}
 	
 
@@ -192,6 +166,31 @@ public class GerenciadorImpl implements Gerenciador{
 			   System.out.println("ID: " + key + "\nQuantidade: " + value);
 			}
 		}
+	}
+
+	@Override
+public void addsubpart(Registry r) throws RemoteException {
+		
+		System.out.println("Informe o ID da Subpeça: ");
+		String id = sc.nextLine();
+		boolean jaCadastrado = false;
+		String[] nomes = r.list();
+		
+		for (int i = 0;i < nomes.length;i++) {
+			if (id.equals(nomes[i])) jaCadastrado = true;
+		}
+		
+		if (jaCadastrado == true) {
+		    System.out.println("Informe a quantidade de Subpeças nessa Peças ");
+		    Integer qntdP = 0;
+		    try {
+			qntdP = Integer.parseInt(sc.nextLine());
+		    }catch (NumberFormatException e) {
+		    	e.printStackTrace();
+		    }
+			subpAtual.put(Integer.parseInt(id), qntdP);
+		} else { System.out.println("Subpeça não cadastrada"); }
+		
 	}
 
 }
