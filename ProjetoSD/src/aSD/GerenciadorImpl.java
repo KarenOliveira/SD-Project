@@ -96,8 +96,12 @@ public class GerenciadorImpl implements Gerenciador{
 		
 		if (jaCadastrado == true) {
 		    System.out.println("Informe a quantidade de Subpeças nessa Peças ");
-			Integer qntdP = Integer.parseInt(sc.nextLine());
-			
+		    Integer qntdP = 0;
+		    try {
+			qntdP = Integer.parseInt(sc.nextLine());
+		    }catch (NumberFormatException e) {
+		    	e.printStackTrace();
+		    }
 			subpAtual.put(Integer.parseInt(id), qntdP);
 		} else { System.out.println("Subpeça não cadastrada"); }
 		
@@ -129,7 +133,7 @@ public class GerenciadorImpl implements Gerenciador{
 	}
 	
 
-	public void ajuda() throws RemoteException {
+	public void help() throws RemoteException {
 		System.out.println("Comandos:\naddp: Adiciona uma nova peça que já esteja identificada.\n"
 				+ "addnewp: Adiciona peças que ainda não foram cadastradas.\n"
 				+ "addsubpart: Adiciona subpeças em uma peça já cadastrada.\n"
@@ -170,14 +174,14 @@ public class GerenciadorImpl implements Gerenciador{
 
 	public void showp(Registry r) throws RemoteException {
 		System.out.println("Nome: "+ pecaAtual.nome + "\n" + 
-						   "id: "+ pecaAtual.id + "\n" + 
-						   "desc: "+ pecaAtual.descricao + "\n" + 
-						   "quant: "+ pecaAtual.quantidade + "\n");
+						   "ID: "+ pecaAtual.id + "\n" + 
+						   "Descrição: "+ pecaAtual.descricao + "\n" + 
+						   "Quantidade: "+ pecaAtual.quantidade + "\n");
 		
 		if(pecaAtual.partList != null) {
 			for(int i=0;i<pecaAtual.partList.length;i++) {
-				System.out.println("subpeca ID: " + pecaAtual.partList[i][0]);
-				System.out.println("subpeca Quant: " + pecaAtual.partList[i][1]);
+				System.out.println("ID da Subpeça: " + pecaAtual.partList[i][0]);
+				System.out.println("Quantidade da Subpeça: " + pecaAtual.partList[i][1]);
 			}
 		}
 	}
