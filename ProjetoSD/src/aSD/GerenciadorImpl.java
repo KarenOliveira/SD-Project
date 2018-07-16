@@ -134,16 +134,9 @@ public class GerenciadorImpl implements Gerenciador{
 	}
 	
 
-	public void help() throws RemoteException {
-		System.out.println("Comandos:\naddp: Adiciona uma nova peça que já esteja identificada.\n"
-				+ "addnewp: Adiciona peças que ainda não foram cadastradas.\n"
-				+ "addsubpart: Adiciona subpeças em uma peça já cadastrada.\n"
-				+ "clearlist: Limpar peça e lista de subpeças atuais.\n"
-				+ "getp: Busca uma peça, caso a busca seja bem sucedida, salva o resultado como Peça atual\n"
-				+ "listp: Lista as peças do repositório atual.\n"
-				+ "quit: Desconecta do Servidor atual, irá solicitar uma nova porta.\n"
-				+ "showp: Mostra a peça atual.\n"
-				+ "showsubp: Mostra a lista de subpeças atual.\n");
+	public String help() throws RemoteException {
+		String ajuda = "Comandos:\naddp: Adiciona uma nova peça que já esteja identificada.\naddnewp: Adiciona peças que ainda não foram cadastradas.\naddsubpart: Adiciona subpeças em uma peça já cadastrada.\nclearlist: Limpar peça e lista de subpeças atuais.\ngetp: Busca uma peça, caso a busca seja bem sucedida, salva o resultado como Peça atual\nlistp: Lista as peças do repositório atual.\nquit: Desconecta do Servidor atual, irá solicitar uma nova porta.\nshowp: Mostra a peça atual.\nshowsubp: Mostra a lista de subpeças atual.\n";
+		return ajuda;
 	}
 	
 	public void clear() {

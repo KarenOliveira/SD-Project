@@ -24,6 +24,6 @@ public interface Gerenciador extends Remote{
 		throws RemoteException;
 	public void clear()
 		throws RemoteException;
-	public void help()
+	public String help()
 		throws RemoteException;
 }

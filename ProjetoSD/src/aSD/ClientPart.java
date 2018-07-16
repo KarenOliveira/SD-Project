@@ -83,7 +83,8 @@ public class ClientPart{
 		        case "quit":
 		        	break;
 		        case "help":
-		        	gere.help();
+		        	String help = gere.help();
+		        	System.out.println(help);
 		        	break;
 		        default:
 		        	System.out.println("Esse não é um comando válido!!!");
