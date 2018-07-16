@@ -13,22 +13,10 @@ public class GerenciadorImpl implements Gerenciador{
 	public static HashMap<Integer,Integer> subpAtual = new HashMap	<Integer,Integer>();
 	static transient Scanner sc = new Scanner(System.in);
 
-	public void addnewp(Registry r) throws RemoteException {
+	public String addnewp(Registry r,String name,String description,int qntd, String conf) throws RemoteException {
+		String retorno = "";
 		PartImpl parteNova = null;
-		System.out.println("----------------------------------------\n");
-		System.out.println("Informe o nome da peça: ");
-		String name = sc.nextLine();
-		System.out.println("Informe a descrição da peça: ");
-		String description = sc.nextLine();
-		int qntd = 0;
-		try {
-		System.out.println("Informe a quantidade de Peças: ");
-		qntd = Integer.parseInt(sc.nextLine());
-		}catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		System.out.println("A peça possui subparts(s/n): ");
-		String conf = sc.nextLine();
+
 		if(conf.equals("s"))  {
 			Integer[][] subp = new Integer[subpAtual.size()][2];
 			
@@ -45,20 +33,23 @@ public class GerenciadorImpl implements Gerenciador{
 				   i++;
 				}
 				parteNova = new PartImpl(name,description,true,qntd,subp);
-				
-			} else {System.out.println("Não há subparte atual para ser adicionada");}
-			
+				retorno = "Peça e suas subpeças adicionadas com sucesso";
+				return retorno;
+			} else {
+				retorno = "Houve erro em adicionar a peça devido a Subpeças atual estar vazio";
+				return retorno;
+			}	
 		}
-		else parteNova = new PartImpl(name,description,false,qntd,null);
+	
+			parteNova = new PartImpl(name,description,false,qntd,null);		
+			retorno = "Peça adicionada com sucesso";
 		
 		try {
 			r.bind(parteNova.id.toString(), parteNova);
 		} catch (AlreadyBoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Peça adicionada");
-		System.out.println("----------------------------------------\n");
-		
+		return retorno;
 	}
 	
 public void addPeca(Registry r) throws RemoteException {

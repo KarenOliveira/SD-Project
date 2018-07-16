@@ -18,11 +18,13 @@ public class ClientPart{
 	    	int port = 0;
 	    	String comando = "Init";
 	    	while(!comando.equals("Quit")) {
-		    	
+		    	try {
 		    	System.out.println("Escolha a porta a se conectar: ");
 				comando = sc.nextLine();
 				port = Integer.parseInt(comando);
-				
+		    	}catch(NumberFormatException e) {
+		    		System.out.println("As portas são numericas");
+		    	}
 				try {
 				
 					Registry registry = LocateRegistry.getRegistry(port);
@@ -58,7 +60,21 @@ public class ClientPart{
 	        
 		        switch(comando) {
 		        case "addnewp":
-		        	gere.addnewp(registry);
+		    		int qntd = 0;
+		    		System.out.println("Informe o nome da peça: ");
+		    		String name = sc.nextLine();
+		    		System.out.println("Informe a descrição da peça: ");
+		    		String description = sc.nextLine();
+		    		try {
+		    		System.out.println("Informe a quantidade de Peças: ");
+		    		qntd = Integer.parseInt(sc.nextLine());
+		    		}catch (NumberFormatException e) {
+		    			e.printStackTrace();
+		    		}
+		    		System.out.println("A peça possui subparts(s/n): ");
+		    		String conf = sc.nextLine();
+		        	String returnaddnewp = gere.addnewp(registry,name,description,qntd,conf);
+		        	System.out.println(returnaddnewp);
 		        	break;
 		        case "addp":
 		        	gere.addPeca(registry);

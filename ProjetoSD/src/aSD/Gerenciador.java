@@ -7,7 +7,7 @@ public interface Gerenciador extends Remote{
 	
 	public void addPeca(Registry r)
 		throws RemoteException;
-	public void addnewp(Registry r)
+	public String addnewp(Registry r,String name,String description,int qntd, String conf)
 		throws RemoteException;
 	public void getrepName(Registry r)
 		throws RemoteException;
