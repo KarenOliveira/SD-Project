@@ -73,16 +73,14 @@ public class ClientPart{
 		    		}
 		    		System.out.println("A peça possui subparts(s/n): ");
 		    		String conf = sc.nextLine();
-		        	String returnaddnewp = gere.addnewp(registry,name,description,qntd,conf);
-		        	System.out.println(returnaddnewp);
+		        	System.out.println(gere.addnewp(registry,name,description,qntd,conf));
 		        	break;
-		        case "addp":
-		        	gere.addPeca(registry);
+		        case "addsubp":
+		    		System.out.println("Informe o ID da Subpeça: ");
+		    		String i = sc.nextLine();
+		        	System.out.println(gere.addsubp(registry,i));
 		        	break;
-		        case "addsubpart":
-		        	gere.addsubpart(registry);
-		        	break;
-		        case "clearlist":
+		        case "clear":
 		        	gere.clear();
 		        	break;
 		        case "getp":
@@ -91,8 +89,11 @@ public class ClientPart{
 		        	String getp = gere.getp(registry, id);
 		        	System.out.println(getp);
 		        	break;
+		        case "getrepname":
+		        	System.out.println(gere.getrepName(registry));
+		        	break;
 		        case "listp":
-		        	String listp = gere.listPecas(registry);
+		        	String listp = gere.listp(registry);
 		        	System.out.println(listp);
 		        	break;
 		        case "showp":
@@ -100,7 +101,7 @@ public class ClientPart{
 		        	System.out.println(showp);
 		        	break;
 		        case "showsubp":
-		        	gere.showsubp(registry);
+		        	System.out.println(gere.showsubp(registry));
 		        	break;
 		        case "quit":
 		        	break;
