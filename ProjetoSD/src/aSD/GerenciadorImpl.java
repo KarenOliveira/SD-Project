@@ -21,9 +21,10 @@ public class GerenciadorImpl implements Gerenciador{
 		String name = sc.nextLine();
 		System.out.println("Informe a descrição da peça: ");
 		String description = sc.nextLine();
+		int qntd = 0;
 		try {
 		System.out.println("Informe a quantidade de Peças: ");
-		int qntd = Integer.parseInt(sc.nextLine());
+		qntd = Integer.parseInt(sc.nextLine());
 		}catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
