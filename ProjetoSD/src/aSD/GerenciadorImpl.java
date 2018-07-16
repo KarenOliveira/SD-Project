@@ -101,7 +101,7 @@ public class GerenciadorImpl implements Gerenciador{
 		
 	public void getp(Registry r) throws RemoteException {
 		
-		System.out.println("Informe o ID da Subpeça: ");
+		System.out.println("Informe o ID da Peça: ");
 		String id = sc.nextLine();
 		String[] nomes = r.list();
 		boolean conf = false;
@@ -124,8 +124,17 @@ public class GerenciadorImpl implements Gerenciador{
 		
 	}
 	
-	public void conectar() throws RemoteException {
-		
+
+	public void help() throws RemoteException {
+		System.out.println("Comandos:\naddp: Adiciona uma nova peça que já esteja identificada.\n"
+				+ "addnewp: Adiciona peças que ainda não foram cadastradas.\n"
+				+ "addsubpart: Adiciona subpeças em uma peça já cadastrada.\n"
+				+ "clearlist: Limpar peça e subpeças atuais.\n"
+				+ "getp: Busca uma peça, caso a busca seja bem sucedida, salva o resultado como Peça atual\n"
+				+ "listp: Lista as peças do repositório atual.\n"
+				+ "quit: Desconecta do Servidor atual, irá solicitar uma nova porta.\n"
+				+ "showp: Mostra a peça atual.\n"
+				+ "showsubp: Mostra a lista de subpeças atual.\n");
 	}
 	
 	public void clear() {

@@ -11,7 +11,7 @@ public class ServerPart {
 		    try {
 		    	Scanner sc = new Scanner(System.in);
 		    	//System.setProperty("RMI1","192.168.1.48");
-		    	System.out.println("Escoha a porta a instanciar o servidor: ");
+		    	System.out.println("Escolha a porta a instanciar o servidor: ");
 		    	int port = sc.nextInt();
 		      //Crio o objeto servidor
 		      GerenciadorImpl gere = new GerenciadorImpl();

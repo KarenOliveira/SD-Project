@@ -50,7 +50,7 @@ public class ClientPart{
         
         try {
         
-	        while(!comando.equals("Quit")){
+	        while(!comando.equals("quit")){
 	        	
 	        	 System.out.println("Aguardando comando: ");
 	        	 comando = sn.nextLine();
@@ -64,9 +64,6 @@ public class ClientPart{
 		        	break;
 		        case "addsubpart":
 		        	gere.addsubpart(registry);
-		        	break;
-		        case "bind":
-		        	gere.conectar();
 		        	break;
 		        case "clearlist":
 		        	gere.clear();
@@ -83,7 +80,10 @@ public class ClientPart{
 		        case "showsubp":
 		        	gere.showsubp(registry);
 		        	break;
-		        case "Quit":
+		        case "quit":
+		        	break;
+		        case "help":
+		        	gere.help();
 		        	break;
 		        default:
 		        	System.out.println("Esse não é um comando válido!!!");

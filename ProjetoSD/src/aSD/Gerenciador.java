@@ -6,8 +6,6 @@ import java.rmi.registry.Registry;
 
 public interface Gerenciador extends Remote{
 	
-	public void conectar()
-		throws RemoteException;
 	public void addPeca(Registry r)
 		throws RemoteException;
 	public void addnewp(Registry r)
@@ -25,5 +23,7 @@ public interface Gerenciador extends Remote{
 	public void showsubp(Registry r)
 		throws RemoteException;
 	public void clear()
+		throws RemoteException;
+	public void help()
 		throws RemoteException;
 }
